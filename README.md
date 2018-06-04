@@ -16,7 +16,7 @@ and in the app or module build.gradle:
 
 ```gradle
 dependencies {
-    implementation 'com.github.Rygelouv:FragmentStepper:v0.0.1-beta'
+    implementation 'com.github.rygelouv:lcerecyclerview:0.0.1'
 }
 ```
 
