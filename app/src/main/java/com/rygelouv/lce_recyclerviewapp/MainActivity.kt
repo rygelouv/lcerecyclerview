@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity() {
 
         lceRecyclerview = findViewById(R.id.list)
         with(lceRecyclerview) {
-            provideEmptyView(R.layout.empty_layout)
+            provideEmptyView(R.layout.empty_layout, true)
             provideErrorView(R.layout.error_layout)
             provideLoadingView(R.layout.loading_layout)
             provideRetryAction(R.id.retry, object : LCEActionHandler.ActionClickListener {

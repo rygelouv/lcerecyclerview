@@ -57,6 +57,17 @@ class LCERecyclerview: RelativeLayout {
         mRecyclerView = findViewById(R.id.content_view)
     }
 
+    fun setContent() {
+
+    }
+
+    fun isEmpty() {
+        mRecyclerView.visibility = View.GONE
+        mEmptyView.visibility = View.VISIBLE
+        mErrorView.visibility = View.GONE
+        mLoadingView.visibility = View.GONE
+    }
+
     private fun addViewIncenter(view: View) {
         val eLayoutParams = RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
         eLayoutParams.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE)
@@ -64,11 +75,23 @@ class LCERecyclerview: RelativeLayout {
         addView(view)
     }
 
-    fun provideEmptyView(@LayoutRes layout: Int) {
-        val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-        mEmptyView = inflater.inflate(layout, null, false)
+    fun provideEmptyView(view: View) {
+        mEmptyView = view
         addViewIncenter(mEmptyView)
         mEmptyView.visibility = View.GONE
+    }
+
+    fun provideEmptyView(@LayoutRes layout: Int, addViewInCenter: Boolean) {
+        val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        mEmptyView = inflater.inflate(layout, null, false)
+        if (addViewInCenter) addViewIncenter(mEmptyView)
+        mEmptyView.visibility = View.GONE
+    }
+
+    fun provideErrorView(view: View) {
+        mErrorView = view
+        addViewIncenter(mErrorView)
+        mErrorView.visibility = View.GONE
     }
 
     fun provideErrorView(@LayoutRes layout: Int) {
@@ -81,6 +104,11 @@ class LCERecyclerview: RelativeLayout {
     fun provideRetryAction(@IdRes retryButtonId: Int = 0, listener: LCEActionHandler.ActionClickListener) {
         lCEActionHandler.register(retryButtonId, listener)
         lCEActionHandler.enableAction(this)
+    }
+
+    fun provideLoadingView(view: View) {
+        mLoadingView = view
+        addViewIncenter(mLoadingView)
     }
 
     fun provideLoadingView(@LayoutRes layout: Int) {
