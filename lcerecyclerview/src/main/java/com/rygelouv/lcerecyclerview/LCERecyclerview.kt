@@ -81,11 +81,19 @@ class LCERecyclerview: RelativeLayout {
         mEmptyView.visibility = View.GONE
     }
 
-    fun provideEmptyView(@LayoutRes layout: Int, addViewInCenter: Boolean) {
+    fun provideEmptyView(@LayoutRes layout: Int, addViewInCenter: Boolean = true) {
         val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         mEmptyView = inflater.inflate(layout, null, false)
-        if (addViewInCenter) addViewIncenter(mEmptyView)
         mEmptyView.visibility = View.GONE
+        if (addViewInCenter) {
+            addViewIncenter(mEmptyView)
+        }
+        else {
+            /*val eLayoutParams = RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+            eLayoutParams.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE)
+            mEmptyView.layoutParams = eLayoutParams*/
+            addView(mEmptyView)
+        }
     }
 
     fun provideErrorView(view: View) {
