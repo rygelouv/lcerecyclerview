@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.os.Parcelable
 import android.support.annotation.IdRes
 import android.support.annotation.LayoutRes
+import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.AttributeSet
@@ -35,17 +36,19 @@ class LCERecyclerview: RelativeLayout {
     private lateinit var mEmptyView: View
     private lateinit var mErrorView: View
     private lateinit var mLoadingView: View
-    private lateinit var mRecyclerView: RecyclerView
+    lateinit var mRecyclerView: RecyclerView
+    var layoutManager: LayoutManagerType? = null
+    var gridNumber: Int = 2
 
     private val lCEActionHandler by lazy {
         LCEActionHandler()
     }
 
-    constructor(context: Context) : super(context){
+    constructor(context: Context) : super(context) {
         init()
     }
 
-    constructor(context: Context, attrs: AttributeSet) : super(context, attrs){
+    constructor(context: Context, attrs: AttributeSet) : super(context, attrs) {
         init()
     }
 
@@ -55,10 +58,6 @@ class LCERecyclerview: RelativeLayout {
         mErrorView = findViewById(R.id.error_view)
         mLoadingView = findViewById(R.id.loading_view)
         mRecyclerView = findViewById(R.id.content_view)
-    }
-
-    fun setContent() {
-
     }
 
     fun isEmpty() {
@@ -89,9 +88,6 @@ class LCERecyclerview: RelativeLayout {
             addViewIncenter(mEmptyView)
         }
         else {
-            /*val eLayoutParams = RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-            eLayoutParams.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE)
-            mEmptyView.layoutParams = eLayoutParams*/
             addView(mEmptyView)
         }
     }
@@ -125,8 +121,17 @@ class LCERecyclerview: RelativeLayout {
         addViewIncenter(mLoadingView)
     }
 
+    fun provideLayoutManager (managerType: LayoutManagerType, gridNumber: Int = 2) {
+        layoutManager = managerType
+        this.gridNumber = gridNumber
+    }
+
     fun setAdapter(adapter: RecyclerView.Adapter<*>?) {
-        mRecyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        mRecyclerView.layoutManager = when(layoutManager) {
+            LayoutManagerType.LINEAR -> LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+            LayoutManagerType.GRID -> GridLayoutManager(context, gridNumber)
+            else -> LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        }
         mRecyclerView.adapter = adapter
         checkIfEmpty()
     }
@@ -175,4 +180,9 @@ class LCERecyclerview: RelativeLayout {
         val savedRecyclerLayoutState = bundle.getParcelable(RECYCLER_LAYOUT) as Parcelable?
         mRecyclerView.layoutManager?.onRestoreInstanceState(savedRecyclerLayoutState)
     }
+}
+
+enum class LayoutManagerType {
+    LINEAR,
+    GRID
 }

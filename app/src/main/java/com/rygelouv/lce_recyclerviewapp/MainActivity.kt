@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import com.rygelouv.lcerecyclerview.LCEActionHandler
 import com.rygelouv.lcerecyclerview.LCERecyclerview
+import com.rygelouv.lcerecyclerview.LayoutManagerType
 import kotlinx.coroutines.experimental.*
 import kotlinx.coroutines.experimental.android.UI
 
@@ -55,6 +56,7 @@ class MainActivity : AppCompatActivity() {
                     }
                 }
             })
+            provideLayoutManager(LayoutManagerType.GRID, 4)
         }
         launch(CommonPool) {
             val finished = async {
