@@ -35,7 +35,7 @@ class LCERecyclerview: RelativeLayout {
     }
 
     private lateinit var mEmptyView: View
-    private lateinit var mSearchEmptyView: View
+    private var mSearchEmptyView: View?  = null
     private lateinit var mErrorView: View
     private lateinit var mLoadingView: View
     lateinit var mRecyclerView: RecyclerView
@@ -59,7 +59,7 @@ class LCERecyclerview: RelativeLayout {
     private fun init() {
         inflate(context, R.layout.lce_recycler_view_layout, this)
         mEmptyView = findViewById(R.id.empty_view)
-        mEmptyView = findViewById(R.id.search_empty_view)
+        mSearchEmptyView = findViewById(R.id.search_empty_view)
         mErrorView = findViewById(R.id.error_view)
         mLoadingView = findViewById(R.id.loading_view)
         mRecyclerView = findViewById(R.id.content_view)
@@ -69,7 +69,7 @@ class LCERecyclerview: RelativeLayout {
         mRecyclerView.visibility = View.GONE
         mErrorView.visibility = View.GONE
         mLoadingView.visibility = View.GONE
-        mSearchEmptyView.visibility = View.GONE
+        mSearchEmptyView?.visibility = View.GONE
         mEmptyView.visibility = View.VISIBLE
     }
 
@@ -78,7 +78,7 @@ class LCERecyclerview: RelativeLayout {
         mEmptyView.visibility = View.GONE
         mErrorView.visibility = View.GONE
         mLoadingView.visibility = View.GONE
-        mSearchEmptyView.visibility = View.VISIBLE
+        mSearchEmptyView?.visibility = View.VISIBLE
 
        mSearchEmptyText?.let {
            if (!text.isNullOrEmpty()) {
@@ -117,11 +117,11 @@ class LCERecyclerview: RelativeLayout {
         val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         mSearchEmptyView = inflater.inflate(layout, null, false)
         if (dynamicText) {
-            mSearchEmptyText = mSearchEmptyView.findViewById(R.id.search_text)
+            mSearchEmptyText = mSearchEmptyView?.findViewById(R.id.search_text)
         }
-        mSearchEmptyView.visibility = View.GONE
+        mSearchEmptyView?.visibility = View.GONE
         if (addViewInCenter) {
-            addViewIncenter(mSearchEmptyView)
+            addViewIncenter(mSearchEmptyView!!)
         }
         else {
             addView(mSearchEmptyView)
