@@ -16,7 +16,7 @@ and in the app or module build.gradle:
 
 ```gradle
 dependencies {
-    implementation 'com.github.rygelouv:lcerecyclerview:0.0.4'
+    implementation 'com.github.rygelouv:lcerecyclerview:0.0.5'
 }
 ```
 
