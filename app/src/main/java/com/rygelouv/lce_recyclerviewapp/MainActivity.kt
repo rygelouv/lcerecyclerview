@@ -49,15 +49,15 @@ class MainActivity : AppCompatActivity() {
                         }
                         if (finished.await()) {
                             withContext(UI) {
-                                isSearchEmpty("No query found")
-                                /*val adapter = UserListAdapter(list, this@MainActivity)
-                                lceRecyclerview.setAdapter(adapter)*/
+                                //isSearchEmpty("No query found")
+                                val adapter = UserListAdapter(list, this@MainActivity)
+                                lceRecyclerview.setAdapter(adapter)
                             }
                         }
                     }
                 }
             })
-            provideLayoutManager(LayoutManagerType.GRID, 4)
+            provideLayoutManager(LayoutManagerType.LINEAR, 4)
             provideSearchEmptyView(R.layout.search_empty_view, dynamicText = true)
         }
         launch(CommonPool) {

@@ -9,6 +9,14 @@
     <com.rygelouv.lcerecyclerview.LCERecyclerview
         android:id="@+id/list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        />
+
+    <View
+        android:layout_below="@id/list"
+        android:background="@color/colorPrimary"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
 
 </RelativeLayout>
